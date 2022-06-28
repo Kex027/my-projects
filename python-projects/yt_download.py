@@ -25,7 +25,7 @@ screen = Tk() # inicjacja ekranu
 option = IntVar()
 resolutions = ["144p", "240p", "360p", "480p", "720p", "1080p"] # lista jakosci filmu
 #resolutions = [144, 240, 360, 480, 720, 1080] 
-destination = 'E:\\ADWiM\\python\\videos' # sciezka zapisana filmu
+destination = '..\\videos' # sciezka zapisana filmu
 
 # naglowek
 main_text = Label(screen, text = "Youtube Downloader", font='Helvetica 18 bold')
