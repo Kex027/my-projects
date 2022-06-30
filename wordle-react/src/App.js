@@ -1,14 +1,16 @@
 import React from "react";
-import Board from "./components/navbar/Board";
-import Keyboard from "./components/navbar/Keyboard";
+import Board from "./components/board/Board";
+import Keyboard from "./components/keyboard/Keyboard";
 import Navbar from "./components/navbar/Navbar";
+
+import './styl.scss';
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <Navbar />
-      <Keyboard />
       <Board />
+      <Keyboard />
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React from "react";
+import "./navbar.scss";
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav className="navigation">
       <div>icons</div>
-      <div>
+      <div className="head-text">
         <h1>Wordle</h1>
       </div>
       <div>icons</div>

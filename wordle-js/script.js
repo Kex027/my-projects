@@ -55,6 +55,7 @@ function checkWordNeeds() {
     // check if letter is not in word
     for (let j = 0; j < randomWord.length; j++) {
       if (!randomWord.includes(inputLetters[j + (row - 1) * randomWord.length].innerHTML)) {
+        inputLetters[j + (row - 1) * randomWord.length].classList.add("is-not-in-word");
         continue;
       }
       // i don't know how but it's working
@@ -118,6 +119,7 @@ function resetGame() {
     element.innerHTML = "";
     element.classList.remove("on-good-place");
     element.classList.remove("is-in-word");
+    element.classList.remove("is-not-in-word");
   });
   console.log("reseted");
 }
