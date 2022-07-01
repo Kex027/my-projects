@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "./board.scss";
 
 const BoardBox = (props) => {
-  let text = "";
+  const [value, setValue] = useState("");
+  const changeValue = () => {
+    setValue(props.text);
+  }
+
   return (
-    <div>
+    <div onClick={changeValue}>
       <div id={props.id} className="grid-letter">
-        {text}{props.text}
+        {value}
       </div>
     </div>
   );

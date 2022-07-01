@@ -1,6 +1,7 @@
-const changeLetterValue = (text) => {
-    // at board's pointer change value to text
-    
+import changeValue from "../board/BoardBox"
+
+const changeLetterValue = (letter) => {
+    // at board's pointer change value to letter 
 }
 
 const enterLetter = (keyText) => {
