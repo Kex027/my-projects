@@ -3,7 +3,7 @@ import Key from "./Key";
 
 import "./keyboard.scss";
 
-const Keyboard = () => {
+const Keyboard = ({ rowIndex, setRowIndex, setColumnIndex }) => {
   const genKeyboardList = () => {
     let kbList = [];
     let pointer = "A".charCodeAt(0);
@@ -19,8 +19,22 @@ const Keyboard = () => {
 
   return (
     <div className="keyboard noselect">
-      {genKeyboardList().map((value, index) => {
-        return <Key key={index} text={value} />;
+      {genKeyboardList().map((text, index) => {
+        return (
+          <Key
+            key={index}
+            text={text}
+            onClick={(e) => {
+              if (text === "Enter") {
+                return;
+              }
+              if (text === "Backspace") {
+                return;
+              }
+              setRowIndex((prevRowIndex) => ++prevRowIndex);
+            }}
+          />
+        );
       })}
     </div>
   );

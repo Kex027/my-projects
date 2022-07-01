@@ -1,10 +1,9 @@
 import React from "react";
-import enterLetter from "./keyboardScript.js";
 
 import "./keyboard.scss";
 
-const Key = (props) => {
-    return <div className="key" onClick={letter => enterLetter(props.text)}>{props.text}</div>;
+const Key = ({onClick, text}) => {
+    return <div className="key" onClick={onClick}>{text}</div>;
 };
 
 export default Key;
