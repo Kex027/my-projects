@@ -7,8 +7,8 @@ import "./style.scss";
 
 const App = () => {
   const [board, setBoard] = useState({});
-  const [rowIndex, setRowIndex] = useState(0);
-  const [columnIndex, setColumnIndex] = useState(0);
+  const [rowIndex, setRowIndex] = useState(1);
+  const [columnIndex, setColumnIndex] = useState(1);
   // board[columnIndex[rowIndex]].value;
   // setBoard((prevBoard) => {})
 
@@ -28,12 +28,12 @@ const App = () => {
       5: { id: 5, value: "" },
     }
     const row = {
-      1: { column },
-      2: { column },
-      3: { column },
-      4: { column },
-      5: { column },
-      6: { column }
+      1: column,
+      2: column,
+      3: column,
+      4: column,
+      5: column,
+      6: column
     }
 
     setBoard(row);
@@ -52,6 +52,8 @@ const App = () => {
         setRowIndex={setRowIndex}
         columnIndex={columnIndex}
         setColumnIndex={setColumnIndex}
+        board={board}
+        setBoard={setBoard}
       />
     </div>
   );

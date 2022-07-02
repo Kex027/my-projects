@@ -6,12 +6,10 @@ import "./board.scss";
 const Board = ({ board }) => {
   return (
     <div className="board">
-      {Object.values(board).map((column) =>
-        Object.values(column).map((row) =>
-          Object.values(row).map((box) => {
-            return <BoardBox key={box.id} id={box.id} text={box.value} />;
-          })
-        )
+      {Object.values(board).map((row) =>
+        Object.values(row).map(({ id, value }) => (
+          <BoardBox key={id} id={id} text={value} />
+        ))
       )}
     </div>
   );

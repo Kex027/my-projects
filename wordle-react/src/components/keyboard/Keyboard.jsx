@@ -3,7 +3,16 @@ import Key from "./Key";
 
 import "./keyboard.scss";
 
-const Keyboard = ({ rowIndex, setRowIndex, columnIndex, setColumnIndex }) => {
+const Keyboard = ({
+  rowIndex,
+  setRowIndex,
+  columnIndex,
+  setColumnIndex,
+  setBoard,
+  board,
+}) => {
+  const wordLength = 5;
+
   const genKeyboardList = () => {
     let kbList = [];
     let pointer = "A".charCodeAt(0);
@@ -50,25 +59,39 @@ const Keyboard = ({ rowIndex, setRowIndex, columnIndex, setColumnIndex }) => {
 
   const onKeyClick = (text) => {
     if (text === "Enter") {
-      if (rowIndex === 4) {
-        setColumnIndex((prevColumnIndex) => ++prevColumnIndex);
-        setRowIndex(0);
-        // add letter
+      if (columnIndex - 1 < wordLength) {
+        console.log("too little letters");
+        return;
       }
+      setRowIndex((prevRowIndex) => ++prevRowIndex);
+      setColumnIndex(1);
+      // add letter
       return;
     }
     if (text === "Backspace") {
-      setRowIndex((prevRowIndex) => --prevRowIndex);
+      if (columnIndex === 1) {
+        return;
+      }
+      setColumnIndex((prevColumnIndex) => --prevColumnIndex);
       // delete last letter
       return;
     }
+    // console.log(board);
     console.log(rowIndex);
     console.log(columnIndex);
-    if (rowIndex === 4) {
+    if (columnIndex - 1 === wordLength) {
       return;
     }
-    setRowIndex((prevRowIndex) => ++prevRowIndex);
-    console.log(text);
+    setBoard({
+      ...board,
+      [rowIndex]: {
+        ...board[rowIndex],
+        [columnIndex]: { ...board[columnIndex], value: text },
+      },
+    });
+    setColumnIndex((prevColumnIndex) => ++prevColumnIndex);
+    // console.log(board[1][1]);
+    // console.log(text);
   };
 
   return (
