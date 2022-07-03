@@ -9,17 +9,8 @@ const App = () => {
   const [board, setBoard] = useState({});
   const [rowIndex, setRowIndex] = useState(1);
   const [columnIndex, setColumnIndex] = useState(1);
-  // board[columnIndex[rowIndex]].value;
-  // setBoard((prevBoard) => {})
 
   const createBoard = () => {
-    // array => object
-    // mapowanie boarda
-    // const row = new Array(5).fill({}).map((item, index) => {
-    //   return (item = { id: index, value: "a" });
-    // });
-    // const column = new Array(5).fill(row);
-
     const column = {
       1: { id: 1, value: "" },
       2: { id: 2, value: "" },

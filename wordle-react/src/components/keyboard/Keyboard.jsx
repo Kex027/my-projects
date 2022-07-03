@@ -11,51 +11,70 @@ const Keyboard = ({
   setBoard,
   board,
 }) => {
+  const wordsList = ["QWERT"];
+  const randomWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+  // console.log(randomWord);
   const wordLength = 5;
-
-  const genKeyboardList = () => {
-    let kbList = [];
-    let pointer = "A".charCodeAt(0);
-    let end = "Z".charCodeAt(0);
-
-    for (; pointer <= end; ++pointer) {
-      kbList.push(String.fromCharCode(pointer));
-    }
-    kbList.push("Enter");
-    kbList.push("Backspace");
-    return kbList;
-  };
+  const firstColumnIndex = 1;
 
   const kbList = [
-    "q",
-    "w",
-    "e",
-    "r",
-    "t",
-    "y",
-    "u",
-    "i",
-    "o",
-    "p",
-    "a",
-    "s",
-    "d",
-    "f",
-    "g",
-    "h",
-    "j",
-    "k",
-    "l",
+    "Q",
+    "W",
+    "E",
+    "R",
+    "T",
+    "Y",
+    "U",
+    "I",
+    "O",
+    "P",
+    "A",
+    "S",
+    "D",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K",
+    "L",
     "Enter",
-    "z",
-    "x",
-    "c",
-    "v",
-    "b",
-    "n",
-    "m",
+    "Z",
+    "X",
+    "C",
+    "V",
+    "B",
+    "N",
+    "M",
     "Backspace",
   ];
+
+  const newBoard = (letter) => {
+    return {
+      ...board,
+      [rowIndex]: {
+        ...board[rowIndex],
+        [columnIndex]: { ...board[columnIndex][columnIndex], value: letter },
+      },
+    };
+  };
+
+  const checkWord = () => {
+    const userWord = Object.values(board[rowIndex]).reduce(
+      (word, { value }) => {
+        return `${word}${value}`;
+      },
+      ""
+    );
+    console.log(userWord);
+    if (userWord === randomWord) {
+      console.log("game over");
+      return true;
+    }
+    // check if letter is in word or on good place 
+    // add classess
+    console.log("playing");
+    return;
+  };
 
   const onKeyClick = (text) => {
     if (text === "Enter") {
@@ -63,35 +82,26 @@ const Keyboard = ({
         console.log("too little letters");
         return;
       }
+      if (checkWord()) {
+        return;
+      }
       setRowIndex((prevRowIndex) => ++prevRowIndex);
-      setColumnIndex(1);
-      // add letter
+      setColumnIndex(firstColumnIndex);
       return;
     }
     if (text === "Backspace") {
-      if (columnIndex === 1) {
+      if (columnIndex === firstColumnIndex) {
         return;
       }
-      setColumnIndex((prevColumnIndex) => --prevColumnIndex);
-      // delete last letter
+      setColumnIndex(--columnIndex);
+      setBoard(newBoard(""));
       return;
     }
-    // console.log(board);
-    console.log(rowIndex);
-    console.log(columnIndex);
     if (columnIndex - 1 === wordLength) {
       return;
     }
-    setBoard({
-      ...board,
-      [rowIndex]: {
-        ...board[rowIndex],
-        [columnIndex]: { ...board[columnIndex], value: text },
-      },
-    });
+    setBoard(newBoard(text));
     setColumnIndex((prevColumnIndex) => ++prevColumnIndex);
-    // console.log(board[1][1]);
-    // console.log(text);
   };
 
   return (
