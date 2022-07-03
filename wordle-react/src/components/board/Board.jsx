@@ -16,14 +16,3 @@ const Board = ({ board }) => {
 };
 
 export default Board;
-
-// reduce
-// object.keys
-// object.values
-
-// {board.map((column) =>
-//   column.map((row) => {
-//     const { id, value } = row;
-//     return <BoardBox key={id} id={id} text={value} />;
-//   })
-// )}

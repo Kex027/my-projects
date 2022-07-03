@@ -60,23 +60,23 @@ const Keyboard = ({
 
   const checkWord = () => {
     const userWord = Object.values(board[rowIndex]).reduce(
-      (word, { value }) => {
-        return `${word}${value}`;
-      },
+      (word, { value }) => `${word}${value}`,
       ""
     );
     console.log(userWord);
     if (userWord === randomWord) {
       console.log("game over");
+      
       return true;
     }
-    // check if letter is in word or on good place 
+    // check if letter is in word or on good place
     // add classess
     console.log("playing");
-    return;
+    return false;
   };
 
   const onKeyClick = (text) => {
+    console.log(board);
     if (text === "Enter") {
       if (columnIndex - 1 < wordLength) {
         console.log("too little letters");
