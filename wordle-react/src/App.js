@@ -11,16 +11,16 @@ const App = () => {
   const [rowIndex, setRowIndex] = useState(1);
   const [columnIndex, setColumnIndex] = useState(1);
   const [loader, setLoader] = useState(true);
-  const randomIndex = Math.floor(Math.random() * (5 - 1)) + 1;
+  const randomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
   const [randomWord, setRandomWord] = useState({});
 
   const createBoard = () => {
     const column = {
-      1: { id: 1, value: "" },
-      2: { id: 2, value: "" },
-      3: { id: 3, value: "" },
-      4: { id: 4, value: "" },
-      5: { id: 5, value: "" },
+      1: { id: 1, value: "", boxClass: "" },
+      2: { id: 2, value: "", boxClass: "" },
+      3: { id: 3, value: "", boxClass: "" },
+      4: { id: 4, value: "", boxClass: "" },
+      5: { id: 5, value: "", boxClass: "" },
     }
     const row = {
       1: column,
@@ -28,7 +28,7 @@ const App = () => {
       3: column,
       4: column,
       5: column,
-      6: column
+      6: column,
     }
 
     setBoard(row);
@@ -38,7 +38,6 @@ const App = () => {
   //   try {
   //     const response = await fetch('https://611e5c5d9771bf001785c3af.mockapi.io/test/1');
   //     const responseJson = await response.json();
-  //     console.log(responseJson);
   //     createBoard();
   //   } catch {
 
@@ -52,11 +51,12 @@ const App = () => {
       const response = await axios.get(`https://611e5c5d9771bf001785c3af.mockapi.io/test/${randomIndex}`);
       setRandomWord(response.data);
       createBoard();
-    } catch {
-      console.log("error from api")
-    } finally {
       setLoader(false);
+    } catch {
+      console.log("API error")
     }
+    // finally {
+    // }
   }
 
   useEffect(() => {
@@ -78,6 +78,7 @@ const App = () => {
           setColumnIndex={setColumnIndex}
           board={board}
           setBoard={setBoard}
+          randomWord={randomWord}
         />
       </>}
     </div>

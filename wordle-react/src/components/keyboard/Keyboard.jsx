@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useTransition } from "react";
 import Key from "./Key";
 
 import "./keyboard.scss";
@@ -10,10 +10,14 @@ const Keyboard = ({
   setColumnIndex,
   setBoard,
   board,
+  randomWord,
 }) => {
-  const wordsList = ["QWERT"];
-  const randomWord = wordsList[Math.floor(Math.random() * wordsList.length)];
-  // console.log(randomWord);
+  const { word } = randomWord;
+  if (word === undefined) {
+    console.log("word is undefinded");
+    return;
+  }
+  console.log(word);
   const wordLength = 5;
   const firstColumnIndex = 1;
 
@@ -48,36 +52,50 @@ const Keyboard = ({
     "Backspace",
   ];
 
-  const newBoard = (letter) => {
+  const newBoardText = (letter) => {
     return {
       ...board,
       [rowIndex]: {
         ...board[rowIndex],
-        [columnIndex]: { ...board[columnIndex][columnIndex], value: letter },
+        [columnIndex]: { ...board[rowIndex][columnIndex], value: letter },
       },
     };
+  };
+
+  const newBoardClasses = (userWord) => {
+    const updatedBoard = {...board};
+    const keys = Object.keys(board[rowIndex]);
+    keys.forEach((key) => {
+      for (let i = 0; i < wordLength; i++) {
+        if (userWord[key - 1] === word[key - 1]) {
+          updatedBoard[rowIndex][key].boxClass = "on-good-place";
+        } else    if (word.includes(userWord[key - 1])) {
+          updatedBoard[rowIndex][key].boxClass = "is-in-word";
+        } else {
+          updatedBoard[rowIndex][key].boxClass = "bad-letter ";
+        }
+      }
+    });
+    return updatedBoard;
   };
 
   const checkWord = () => {
     const userWord = Object.values(board[rowIndex]).reduce(
       (word, { value }) => `${word}${value}`,
       ""
-    );
-    console.log(userWord);
-    if (userWord === randomWord) {
+    ).toLowerCase();
+
+    setBoard(newBoardClasses(userWord));
+    if (userWord === word.toLowerCase()) {
       console.log("game over");
-      
       return true;
     }
-    // check if letter is in word or on good place
-    // add classess
-    console.log("playing");
     return false;
   };
 
   const onKeyClick = (text) => {
-    console.log(board);
     if (text === "Enter") {
+      console.log(board);
       if (columnIndex - 1 < wordLength) {
         console.log("too little letters");
         return;
@@ -94,13 +112,13 @@ const Keyboard = ({
         return;
       }
       setColumnIndex(--columnIndex);
-      setBoard(newBoard(""));
+      setBoard(newBoardText(""));
       return;
     }
     if (columnIndex - 1 === wordLength) {
       return;
     }
-    setBoard(newBoard(text));
+    setBoard(newBoardText(text));
     setColumnIndex((prevColumnIndex) => ++prevColumnIndex);
   };
 

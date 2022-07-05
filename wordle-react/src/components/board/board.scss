@@ -1,3 +1,7 @@
+$good-place-bg: rgb(69, 177, 27);
+$in-word-bg: rgb(208, 211, 30);
+$bad-letter: #666;
+
 .board {
     width: 50vh;
     height: 60vh;
@@ -15,4 +19,13 @@
     border: 2px solid #444;
     height: 8vh;
     margin: 3px;
+}
+.on-good-place {
+    background-color: $good-place-bg;
+}
+.is-in-word {
+    background-color: $in-word-bg;
+}
+.bad-letter {
+    background-color: $bad-letter;
 }

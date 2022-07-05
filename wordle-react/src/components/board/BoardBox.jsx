@@ -2,13 +2,13 @@ import React from "react";
 
 import "./board.scss";
 
-const BoardBox = ({ text, id }) => {
+const BoardBox = ({ text, id, boxClass }) => {
   return (
-    <div>
-      <div id={id} className="grid-letter">
+    <>
+      <div id={id} className={`grid-letter ${boxClass}`}>
         {text}
       </div>
-    </div>
+    </>
   );
 };
 
