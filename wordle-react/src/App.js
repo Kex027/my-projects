@@ -3,6 +3,7 @@ import axios from "axios";
 import Board from "./components/board/Board";
 import Keyboard from "./components/keyboard/Keyboard";
 import Navbar from "./components/navbar/Navbar";
+import Overlay from "./overlay/Overlay";
 
 import "./style.scss";
 
@@ -11,8 +12,10 @@ const App = () => {
   const [rowIndex, setRowIndex] = useState(1);
   const [columnIndex, setColumnIndex] = useState(1);
   const [loader, setLoader] = useState(true);
-  const randomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
+  let randomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
   const [randomWord, setRandomWord] = useState({});
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [gameResult, setGameResult] = useState();
 
   const createBoard = () => {
     const column = {
@@ -50,6 +53,7 @@ const App = () => {
     try {
       const response = await axios.get(`https://611e5c5d9771bf001785c3af.mockapi.io/test/${randomIndex}`);
       setRandomWord(response.data);
+      console.log(response.data);
       createBoard();
       setLoader(false);
     } catch {
@@ -66,6 +70,16 @@ const App = () => {
     fetchDataAxios();
   }, []);
 
+  const resetGame = () => {
+    setBoard(createBoard);
+    setShowOverlay(false);
+    setRowIndex(1);
+    setColumnIndex(1);
+    randomIndex = Math.floor(Math.random() * (4 - 1)) + 1;
+    setLoader(true);
+    fetchDataAxios();
+  }
+
   return (
     <div className="container">
       {loader ? <div>loader</div> : <>
@@ -79,7 +93,10 @@ const App = () => {
           board={board}
           setBoard={setBoard}
           randomWord={randomWord}
+          setShowOverlay={setShowOverlay}
+          setGameResult={setGameResult}
         />
+        {showOverlay ? <Overlay gameResult={gameResult} resetGame={resetGame} /> : <></>}
       </>}
     </div>
   );
